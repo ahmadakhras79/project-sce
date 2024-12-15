@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const authRoutes = require('./routes/auth'); // חיבור לנתיבי האימות
 const Paint = require('./models/Paint'); // Import the Paint model
-
+const Drywall = require('./models/drywall'); // Import the Drywall model
 dotenv.config();
 
 const app = express();
@@ -48,4 +48,34 @@ app.get('/api/paints', async (req, res) => {
 });
 app.get('/paint', (req, res) => {
     res.sendFile(path.join(__dirname, 'website', 'paint.html')); // Serve paint.html
+});
+
+
+
+
+app.get('/api/drywalls', async (req, res) => {
+    try {
+        const drywalls = await Drywall.find(); // Fetch all drywall products
+        res.json(drywalls); // Send the drywall products as a JSON response
+    } catch (error) {
+        console.error('Error fetching drywalls:', error);
+        res.status(500).json({ error: 'Failed to fetch drywalls' });
+    }
+});
+app.get('/drywall', (req, res) => {
+    res.sendFile(path.join(__dirname, 'website', 'drywall.html'));
+})
+
+app.get('/add-sample-drywalls', async (req, res) => {
+    try {
+        const sampleDrywalls = [
+            { name: 'Basic Drywall', quality: 'Standard', price: 15, image: 'images/basic-drywall.jpg' },
+            { name: 'Premium Drywall', quality: 'Premium', price: 30, image: 'images/premium-drywall.jpg' }
+        ];
+        await Drywall.insertMany(sampleDrywalls);
+        res.send('Sample drywalls added successfully!');
+    } catch (error) {
+        console.error('Error adding sample drywalls:', error);
+        res.status(500).send('Failed to add sample drywalls.');
+    }
 });

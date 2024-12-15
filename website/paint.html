@@ -11,29 +11,33 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="catalog.css" />
+    <link rel="stylesheet" href="paint.css" />
   </head>
-  <body>
-    <h1>Paint Catalog</h1>
-    <div id="paint-container" class="gallery"></div>
 
+  <body>
+    <div class="background">
+      <h1>Paint Catalog</h1>
+      <div id="paint-container" class="gallery"></div>
+    </div>
     <script>
       // Fetch paints from the API and display them
       async function fetchPaints() {
         try {
-          const response = await fetch('/api/paints'); // Fetch paints from the server
+          const response = await fetch("/api/paints"); // Fetch paints from the server
           const paints = await response.json(); // Parse the JSON response
-          const container = document.getElementById('paint-container');
+          const container = document.getElementById("paint-container");
 
           // Clear container before rendering
-          container.innerHTML = '';
+          container.innerHTML = "";
 
           // Render each paint product
           paints.forEach((paint) => {
-            const paintCard = document.createElement('div');
-            paintCard.classList.add('content');
+            const paintCard = document.createElement("div");
+            paintCard.classList.add("content");
             paintCard.innerHTML = `
-              <img src="${paint.image || 'images/default-paint.jpg'}" alt="${paint.name}" />
+              <img src="${paint.image || "images/default-paint.jpg"}" alt="${
+              paint.name
+            }" />
               <h3>${paint.name}</h3>
               <p>Quality: ${paint.quality}</p>
               <h6>$${paint.price}</h6>
@@ -47,7 +51,7 @@
             container.appendChild(paintCard);
           });
         } catch (error) {
-          console.error('Failed to fetch paints:', error);
+          console.error("Failed to fetch paints:", error);
         }
       }
 

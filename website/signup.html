@@ -56,7 +56,7 @@
                 
                 // Collect form data
                 const username = document.getElementById('signupUsername').value;
-                const email = document.getElementById('signupEmail').value;
+                const email = document.getElementById('signupEmail').value.toLowerCase();
                 const password = document.getElementById('signupPassword').value;
                 const gender = document.querySelector('input[name="gender"]:checked').value;
 
@@ -67,7 +67,7 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, email, password, gender })
                     });
-
+                    
                     if (response.ok) {
                         alert('Sign up successful! Redirecting to login page...');
                         window.location.href = 'login.html'; // Redirect to login page

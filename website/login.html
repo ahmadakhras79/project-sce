@@ -47,7 +47,8 @@
              document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 e.preventDefault(); // Prevent default form submission
 
-                const email = document.getElementById('loginEmail').value;
+                const email = document.getElementById('loginEmail').value.toLowerCase();
+        
                 const password = document.getElementById('loginPassword').value;
 
                 try {

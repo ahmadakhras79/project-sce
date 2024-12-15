@@ -7,7 +7,7 @@ body{
     background: #f2f2f2;
     margin: 0;
     padding: 0;
-    background-image: url('images/background.jpeg');
+    background-image: url('../images/background.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

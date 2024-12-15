@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paint Catalog</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="catalog.css" />
+  </head>
+  <body>
+    <h1>Paint Catalog</h1>
+    <div id="paint-container" class="gallery"></div>
+
+    <script>
+      // Fetch paints from the API and display them
+      async function fetchPaints() {
+        try {
+          const response = await fetch('/api/paints'); // Fetch paints from the server
+          const paints = await response.json(); // Parse the JSON response
+          const container = document.getElementById('paint-container');
+
+          // Clear container before rendering
+          container.innerHTML = '';
+
+          // Render each paint product
+          paints.forEach((paint) => {
+            const paintCard = document.createElement('div');
+            paintCard.classList.add('content');
+            paintCard.innerHTML = `
+              <img src="${paint.image || 'images/default-paint.jpg'}" alt="${paint.name}" />
+              <h3>${paint.name}</h3>
+              <p>Quality: ${paint.quality}</p>
+              <h6>$${paint.price}</h6>
+              <ul>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star"></i></li>
+              </ul>
+              <button>Add to Cart</button>
+            `;
+            container.appendChild(paintCard);
+          });
+        } catch (error) {
+          console.error('Failed to fetch paints:', error);
+        }
+      }
+
+      // Load paints on page load
+      window.onload = fetchPaints;
+    </script>
+  </body>
+</html>

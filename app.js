@@ -13,7 +13,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('website')); // שיתוף קבצי סטטיים מהתיקייה public
+app.use(express.static('website')); // שיתוף קבצי סטטיים מהתיקייה 
 
 // חיבור למסד הנתונים
 mongoose.connect(process.env.MONGO_URI, {

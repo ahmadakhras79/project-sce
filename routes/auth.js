@@ -6,45 +6,36 @@ const User = require('../models/user'); // מודל המשתמש
 
 const router = express.Router();
 
-// מסלול הרשמה
-router.post('/signup', async (req, res) => {
-    console.log('Request body:', req.body); // לוג לעקוב אחרי גוף הבקשה
+
+router.post('/signup/customer', async (req, res) => {
     const { username, email, password, gender } = req.body;
 
-    if (!email || !password || !username || !gender) {
-        console.log('Missing fields');
-        return res.status(400).json({ message: 'All fields are required' });
-    }
-
     try {
-        console.log('Checking if user exists...');
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            console.log('User already exists');
-            return res.status(400).json({ message: 'User already exists' });
-        }
-
-        console.log('Hashing password...');
         const hashedPassword = await bcrypt.hash(password, 12);
-
-        console.log('Creating new user...');
-        const newUser = new User({
-            username,
-            email,
-            password: hashedPassword,
-            gender
-        });
-
-        console.log('Saving user...');
-        await newUser.save();
-
-        console.log('User created successfully');
-        res.status(201).json({ message: 'User created successfully' });
+        const user = new User({ username, email, password: hashedPassword, gender, accountType: 'Customer' });
+        await user.save();
+        res.status(201).json({ message: 'Customer account created successfully' });
     } catch (err) {
-        console.error('Error during signup:', err);
-        res.status(500).json({ message: 'Something went wrong' });
+        res.status(500).json({ message: 'Error creating customer account' });
     }
 });
+
+// Contractor Sign-Up
+router.post('/signup/contractor', async (req, res) => {
+    const { username, email, password, gender } = req.body;
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const user = new User({ username, email, password: hashedPassword, gender, accountType: 'Contractor' });
+        await user.save();
+        res.status(201).json({ message: 'Contractor account created successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error creating contractor account' });
+    }
+});
+
+
+
 
 // מסלול התחברות
 router.post('/login', async (req, res) => {

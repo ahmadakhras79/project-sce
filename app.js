@@ -65,17 +65,3 @@ app.get('/api/drywalls', async (req, res) => {
 app.get('/drywall', (req, res) => {
     res.sendFile(path.join(__dirname, 'website', 'drywall.html'));
 })
-
-app.get('/add-sample-drywalls', async (req, res) => {
-    try {
-        const sampleDrywalls = [
-            { name: 'Basic Drywall', quality: 'Standard', price: 15, image: 'images/basic-drywall.jpg' },
-            { name: 'Premium Drywall', quality: 'Premium', price: 30, image: 'images/premium-drywall.jpg' }
-        ];
-        await Drywall.insertMany(sampleDrywalls);
-        res.send('Sample drywalls added successfully!');
-    } catch (error) {
-        console.error('Error adding sample drywalls:', error);
-        res.status(500).send('Failed to add sample drywalls.');
-    }
-});

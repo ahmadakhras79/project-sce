@@ -4,13 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drywall Catalog</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+
     <link rel="stylesheet" href="styles/drywall.css" />
   </head>
 
@@ -41,11 +35,9 @@
               <h3>${drywall.name}</h3>
               <p>Quality: ${drywall.quality}</p>
               <h6>$${drywall.price}</h6>
-              <ul>
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star"></i></li>
-              </ul>
+              <div class="rating"
+              ${getStars(drywall.rating)}
+              </div>
               <button>Add to Cart</button>
             `;
             container.appendChild(drywallCard);
@@ -54,7 +46,14 @@
           console.error("Failed to fetch drywalls:", error);
         }
       }
-
+      function getStars(rating) {
+        let stars = "";
+        for (let i = 1; i <= 5; i++) {
+          stars += `<i class="fa fa-star ${i <= rating ? 'checked': ''}"></i>`;
+        }
+        return stars;
+      }
+      
       // Load drywalls on page load
       window.onload = fetchDrywalls;
     </script>

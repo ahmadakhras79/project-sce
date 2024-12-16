@@ -94,10 +94,10 @@ button{
     border-bottom-left-radius: 20px;
 }
 .add1{
-    background: #2183a2;
+    background: #ff0379;
 }
 .add2{
-    background: #3b3e6e;
+    background: #7b0000;
 }
 @media(max-width:1000px){
     .content{

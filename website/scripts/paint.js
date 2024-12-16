@@ -13,7 +13,7 @@
         const paintCard = document.createElement("div");
         paintCard.classList.add("content");
         paintCard.innerHTML = `
-          <img src="${paint.image || "images/default-paint.jpg"}" alt="${
+          <img src="../images/Paint.jpeg" alt="${
           paint.name
         }" />
           <h3>${paint.name}</h3>
@@ -22,9 +22,7 @@
          <div class="rating">
             ${getStars(paint.rating)}
           </div>
-
-          <button><i class="fa-solid fa-plus add-to-cart">Add to Cart</i>
-          </button>
+          <button>Add to Cart</button>
         `;
         container.appendChild(paintCard);
       });

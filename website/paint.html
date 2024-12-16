@@ -19,50 +19,26 @@
       <h1>Paint Catalog</h1>
       <div id="paint-container" class="gallery"></div>
     </div>
-    <script>
-      // Fetch paints from the API and display them
-      async function fetchPaints() {
-        try {
-          const response = await fetch("/api/paints"); // Fetch paints from the server
-          const paints = await response.json(); // Parse the JSON response
-          const container = document.getElementById("paint-container");
+    <div class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+    
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-close">
+        <i class="fa-solid fa-close"></i>
+      </div>
+      <div class="cart-menu">
+        <h3>My Cart</h3>
+        <div class="cart-items">test 1</div>
+      </div>
 
-          // Clear container before rendering
-          container.innerHTML = "";
+      <div class="sidebar--footer">
+        <div class="total--amount">
+          <h5>Total</h5>
+          <div class="cart-total">$0.00</div>
+          <button class="Checkout-btn">Checkout</button>
+        </div>
+      </div>
+    </div>
 
-          // Render each paint product
-          paints.forEach((paint) => {
-            const paintCard = document.createElement("div");
-            paintCard.classList.add("content");
-            paintCard.innerHTML = `
-              <img src="${paint.image || "images/default-paint.jpg"}" alt="${
-              paint.name
-            }" />
-              <h3>${paint.name}</h3>
-              <p>Quality: ${paint.quality}</p>
-              <h6>$${paint.price}</h6>
-             <div class="rating">
-                ${getStars(paint.rating)}
-              </div>
-              <button>Add to Cart</button>
-            `;
-            container.appendChild(paintCard);
-          });
-        } catch (error) {
-          console.error("Failed to fetch paints:", error);
-        }
-      }
-
-      function getStars(rating) {
-        let stars = "";
-        for (let i = 1; i <= 5; i++) {
-          stars += `<i class="fa fa-star ${i <= rating ? "checked" : ""}"></i>`;
-        }
-        return stars;
-      }
-
-      // Load paints on page load
-      window.onload = fetchPaints;
-    </script>
+    <script defer src="scripts/paint.js"></script>
   </body>
 </html>
